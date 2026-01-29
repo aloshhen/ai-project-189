@@ -13,25 +13,25 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* NAVIGATION */}
+      {/* НАВИГАЦИЯ */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-black/5">
         <div className="max-w-[1800px] mx-auto px-8 md:px-16 py-6 flex justify-between items-center">
           <div className="text-lg tracking-tight">
-            <span className="font-light text-black/40">PUPA</span>
+            <span className="font-light text-black/40">ПУПА</span>
             <span className="font-black text-black"> & </span>
-            <span className="font-light text-black/40">LUPA</span>
+            <span className="font-light text-black/40">ЛУПА</span>
           </div>
           <div className="hidden md:flex gap-12 text-sm tracking-wide">
-            <a href="#manifesto" className="text-black/40 hover:text-black transition-colors">MANIFESTO</a>
-            <a href="#works" className="text-black/40 hover:text-black transition-colors">WORKS</a>
-            <a href="#testimonials" className="text-black/40 hover:text-black transition-colors">VOICES</a>
+            <a href="#manifesto" className="text-black/40 hover:text-black transition-colors">МАНИФЕСТ</a>
+            <a href="#works" className="text-black/40 hover:text-black transition-colors">РАБОТЫ</a>
+            <a href="#testimonials" className="text-black/40 hover:text-black transition-colors">ОТЗЫВЫ</a>
           </div>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* ГЛАВНЫЙ ЭКРАН */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Video */}
+        {/* Фоновое видео */}
         <div className="absolute inset-0 z-0">
           <video 
             autoPlay 
@@ -45,7 +45,7 @@ function App() {
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white" />
         </div>
 
-        {/* Hero Content */}
+        {/* Контент героя */}
         <div className="relative z-10 max-w-[1800px] mx-auto px-8 md:px-16 py-32 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -53,13 +53,13 @@ function App() {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1 className="text-[12vw] md:text-[10vw] lg:text-[140px] leading-[0.85] tracking-tighter mb-8">
-              <span className="font-extralight text-black/30 block">PUPA</span>
+              <span className="font-extralight text-black/30 block">ПУПА</span>
               <span className="font-black text-black">&</span>
-              <span className="font-extralight text-black/30 block">LUPA</span>
+              <span className="font-extralight text-black/30 block">ЛУПА</span>
             </h1>
             
             <p className="text-xl md:text-2xl lg:text-3xl font-light tracking-wide text-black/60 mb-16 max-w-3xl mx-auto">
-              THE DUALITY OF MODERN EXISTENCE
+              ДУАЛЬНОСТЬ СОВРЕМЕННОГО СУЩЕСТВОВАНИЯ
             </p>
 
             <motion.div
@@ -68,12 +68,12 @@ function App() {
               transition={{ delay: 0.6, duration: 1 }}
               className="text-sm md:text-base font-light text-black/40 tracking-widest"
             >
-              TWO SIDES · ONE GENIUS · INFINITE CONTRADICTIONS
+              ДВЕ СТОРОНЫ · ОДИН ГЕНИЙ · БЕСКОНЕЧНЫЕ ПРОТИВОРЕЧИЯ
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Индикатор прокрутки */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -84,7 +84,7 @@ function App() {
         </motion.div>
       </section>
 
-      {/* MANIFESTO SECTION */}
+      {/* СЕКЦИЯ МАНИФЕСТА */}
       <section id="manifesto" ref={manifestoRef} className="py-32 md:py-48 px-8 md:px-16 bg-white">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -94,14 +94,14 @@ function App() {
             className="mb-24"
           >
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-black/80 mb-6">
-              THE MANIFESTO
+              МАНИФЕСТ
             </h2>
             <div className="w-24 h-[1px] bg-black/20" />
           </motion.div>
 
-          {/* Two Column Layout */}
+          {/* Две колонки */}
           <div className="grid md:grid-cols-2 gap-16 md:gap-24">
-            {/* PUPA Column */}
+            {/* Колонка ЛУПА */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: isManifestoInView ? 1 : 0, x: isManifestoInView ? 0 : -30 }}
@@ -111,35 +111,35 @@ function App() {
               <div className="aspect-[3/4] overflow-hidden bg-black/5">
                 <img 
                   src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-1.jpg?" 
-                  alt="Pupa"
+                  alt="Лупа"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
               </div>
               
               <div>
-                <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-black mb-6">
-                  PUPA
+                <h3 className="text-4xl md:text-5xl font-thin tracking-tighter text-black/40 mb-6">
+                  ЛУПА
                 </h3>
-                <p className="text-xs tracking-[0.3em] font-medium text-black/40 mb-6">
-                  THE VISIONARY · THE ACHIEVER
+                <p className="text-xs tracking-[0.3em] font-medium text-black/30 mb-6">
+                  РЕАЛИСТ · ВЫЖИВАЛЬЩИК
                 </p>
-                <div className="space-y-4 text-base md:text-lg font-light leading-relaxed text-black/70">
+                <div className="space-y-4 text-base md:text-lg font-light leading-relaxed text-black/50">
                   <p>
-                    Creator of impossible dreams. Builder of empires from thin air. 
-                    The one who sees opportunities where others see obstacles.
+                    Мастер извлекать уроки из грандиозных провалов. Коллекционер историй "почти получилось". 
+                    Эксперт превращения катастроф в анекдоты.
                   </p>
                   <p>
-                    Winner of 47 imaginary awards. Featured in publications that don't exist yet. 
-                    Pioneer of movements that haven't started.
+                    Обладатель 73 незавершённых проектов. Специалист по креативной прокрастинации. 
+                    Профессиональный перфекционист и саботажник самого себя.
                   </p>
-                  <p className="font-medium text-black">
-                    "I don't follow trends. I am the trend."
+                  <p className="font-medium text-black/70">
+                    "Я не проваливаюсь. Я собираю материал."
                   </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* LUPA Column */}
+            {/* Колонка ПУПА */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: isManifestoInView ? 1 : 0, x: isManifestoInView ? 0 : 30 }}
@@ -149,29 +149,29 @@ function App() {
               <div className="aspect-[3/4] overflow-hidden bg-black/5">
                 <img 
                   src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-4.jpg?" 
-                  alt="Lupa"
+                  alt="Пупа"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
               </div>
               
               <div>
-                <h3 className="text-4xl md:text-5xl font-thin tracking-tighter text-black/40 mb-6">
-                  LUPA
+                <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-black mb-6">
+                  ПУПА
                 </h3>
-                <p className="text-xs tracking-[0.3em] font-medium text-black/30 mb-6">
-                  THE REALIST · THE SURVIVOR
+                <p className="text-xs tracking-[0.3em] font-medium text-black/40 mb-6">
+                  ВИЗИОНЕР · ДОСТИГАТОР
                 </p>
-                <div className="space-y-4 text-base md:text-lg font-light leading-relaxed text-black/50">
+                <div className="space-y-4 text-base md:text-lg font-light leading-relaxed text-black/70">
                   <p>
-                    Master of learning from spectacular failures. Collector of "almost made it" stories. 
-                    Expert in turning disasters into anecdotes.
+                    Создатель невозможных мечт. Строитель империй из воздуха. 
+                    Тот, кто видит возможности там, где другие видят препятствия.
                   </p>
                   <p>
-                    Holder of 73 unfinished projects. Specialist in creative procrastination. 
-                    Professional overthinker and self-saboteur.
+                    Победитель 47 воображаемых наград. Фигурант в публикациях, которых ещё не существует. 
+                    Пионер движений, которые ещё не начались.
                   </p>
-                  <p className="font-medium text-black/70">
-                    "I'm not failing. I'm gathering material."
+                  <p className="font-medium text-black">
+                    "Я не следую трендам. Я сам тренд."
                   </p>
                 </div>
               </div>
@@ -180,7 +180,7 @@ function App() {
         </div>
       </section>
 
-      {/* WORKS SECTION */}
+      {/* СЕКЦИЯ РАБОТ */}
       <section id="works" ref={worksRef} className="py-32 md:py-48 px-8 md:px-16 bg-black/[0.02]">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -190,15 +190,15 @@ function App() {
             className="mb-24"
           >
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-black/80 mb-6">
-              THE PORTFOLIO
+              ПОРТФОЛИО
             </h2>
             <div className="w-24 h-[1px] bg-black/20" />
           </motion.div>
 
-          {/* Pupa's Triumphs */}
+          {/* Триумфы Пупы */}
           <div className="mb-32">
             <h3 className="text-3xl md:text-4xl font-black tracking-tight text-black mb-12">
-              PUPA'S TRIUMPHS
+              ТРИУМФЫ ПУПЫ
             </h3>
             <div className="grid md:grid-cols-3 gap-8">
               <motion.div
@@ -210,12 +210,12 @@ function App() {
                 <div className="aspect-[4/5] overflow-hidden bg-black/5 mb-6">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-5.jpg?" 
-                    alt="Project 1"
+                    alt="Проект 1"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
-                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Revolutionary Concept #1</h4>
-                <p className="text-sm font-light text-black/50">Disrupting industries that didn't ask to be disrupted</p>
+                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Революционная Концепция #1</h4>
+                <p className="text-sm font-light text-black/50">Разрушаем индустрии, которые об этом не просили</p>
               </motion.div>
 
               <motion.div
@@ -227,12 +227,12 @@ function App() {
                 <div className="aspect-[4/5] overflow-hidden bg-black/5 mb-6">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-7.jpg?" 
-                    alt="Project 2"
+                    alt="Проект 2"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
-                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Visionary Initiative</h4>
-                <p className="text-sm font-light text-black/50">So ahead of its time, nobody understands it yet</p>
+                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Визионерская Инициатива</h4>
+                <p className="text-sm font-light text-black/50">Настолько опережает время, что никто пока не понимает</p>
               </motion.div>
 
               <motion.div
@@ -244,20 +244,20 @@ function App() {
                 <div className="aspect-[4/5] overflow-hidden bg-black/5 mb-6">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-12.jpg?" 
-                    alt="Project 3"
+                    alt="Проект 3"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
-                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Paradigm Shift Project</h4>
-                <p className="text-sm font-light text-black/50">Changing the game by making up new rules</p>
+                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Проект Смены Парадигмы</h4>
+                <p className="text-sm font-light text-black/50">Меняем игру, придумывая новые правила</p>
               </motion.div>
             </div>
           </div>
 
-          {/* Lupa's Lessons */}
+          {/* Уроки Лупы */}
           <div>
             <h3 className="text-3xl md:text-4xl font-thin tracking-tight text-black/40 mb-12">
-              LUPA'S ... LESSONS
+              УРОКИ ЛУПЫ... 
             </h3>
             <div className="grid md:grid-cols-2 gap-8">
               <motion.div
@@ -269,12 +269,12 @@ function App() {
                 <div className="aspect-video overflow-hidden bg-black/5 mb-6">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-13.jpg?" 
-                    alt="Lesson 1"
+                    alt="Урок 1"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
-                <h4 className="text-xl font-medium tracking-tight text-black/70 mb-2">The Great Pivot</h4>
-                <p className="text-sm font-light text-black/40">When plan A through Z didn't work, we invented plan Ω</p>
+                <h4 className="text-xl font-medium tracking-tight text-black/70 mb-2">Великий Поворот</h4>
+                <p className="text-sm font-light text-black/40">Когда планы от А до Я не сработали, мы изобрели план Ω</p>
               </motion.div>
 
               <motion.div
@@ -286,19 +286,19 @@ function App() {
                 <div className="aspect-video overflow-hidden bg-black/5 mb-6">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-14.jpg?" 
-                    alt="Lesson 2"
+                    alt="Урок 2"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
-                <h4 className="text-xl font-medium tracking-tight text-black/70 mb-2">Learning Experience</h4>
-                <p className="text-sm font-light text-black/40">A masterclass in what not to do (now available as NFT)</p>
+                <h4 className="text-xl font-medium tracking-tight text-black/70 mb-2">Обучающий Опыт</h4>
+                <p className="text-sm font-light text-black/40">Мастер-класс о том, как НЕ надо делать (теперь в формате NFT)</p>
               </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
+      {/* СЕКЦИЯ ОТЗЫВОВ */}
       <section id="testimonials" ref={testimonialsRef} className="py-32 md:py-48 px-8 md:px-16 bg-white">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -308,13 +308,13 @@ function App() {
             className="mb-24"
           >
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-black/80 mb-6">
-              THE VOICES
+              ОТЗЫВЫ
             </h2>
             <div className="w-24 h-[1px] bg-black/20" />
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-16 md:gap-24">
-            {/* Praise for Pupa */}
+            {/* Похвала Пупе */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: isTestimonialsInView ? 1 : 0, x: isTestimonialsInView ? 0 : -30 }}
@@ -323,28 +323,28 @@ function App() {
             >
               <Quote className="w-16 h-16 text-black/10 mb-8" />
               <p className="text-2xl md:text-3xl font-light leading-relaxed text-black mb-12">
-                Pupa is a visionary genius. Working with them changed my perspective on everything. 
-                Pure brilliance in human form.
+                Пупа — гений-визионер. Работа с ним изменила мой взгляд на всё. 
+                Чистая гениальность в человеческом обличии.
               </p>
               <div className="flex items-center gap-6">
                 <div className="w-16 h-16 rounded-full overflow-hidden bg-black/5">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-17.jpg?" 
-                    alt="Supporter"
+                    alt="Сторонник"
                     className="w-full h-full object-cover grayscale"
                   />
                 </div>
                 <div>
-                  <p className="font-bold text-black">Alexandra Chen</p>
-                  <p className="text-sm text-black/40">Definitely Not Related</p>
+                  <p className="font-bold text-black">Александра Чен</p>
+                  <p className="text-sm text-black/40">Точно Не Родственница</p>
                 </div>
               </div>
               <div className="absolute top-0 right-0 text-xs tracking-[0.3em] font-medium text-black/20">
-                TEAM PUPA
+                КОМАНДА ПУПЫ
               </div>
             </motion.div>
 
-            {/* Critique for Lupa */}
+            {/* Критика Лупы */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: isTestimonialsInView ? 1 : 0, x: isTestimonialsInView ? 0 : 30 }}
@@ -353,31 +353,31 @@ function App() {
             >
               <Quote className="w-16 h-16 text-black/5 mb-8" />
               <p className="text-2xl md:text-3xl font-light leading-relaxed text-black/50 mb-12">
-                Lupa? Well... they're certainly... persistent. I'll give them that. 
-                The effort is there. The results? Still waiting.
+                Лупа? Ну... он определённо... настойчивый. Это я признаю. 
+                Старание есть. Результаты? Всё ещё ждём.
               </p>
               <div className="flex items-center gap-6">
                 <div className="w-16 h-16 rounded-full overflow-hidden bg-black/5">
                   <img 
                     src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-18.jpg?" 
-                    alt="Critic"
+                    alt="Критик"
                     className="w-full h-full object-cover grayscale"
                   />
                 </div>
                 <div>
-                  <p className="font-medium text-black/70">Marcus Webb</p>
-                  <p className="text-sm text-black/30">Professional Skeptic</p>
+                  <p className="font-medium text-black/70">Маркус Вебб</p>
+                  <p className="text-sm text-black/30">Профессиональный Скептик</p>
                 </div>
               </div>
               <div className="absolute top-0 right-0 text-xs tracking-[0.3em] font-medium text-black/10">
-                TEAM LUPA
+                КОМАНДА ЛУПЫ
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER / CTA */}
+      {/* ФУТЕР / ПРИЗЫВ К ДЕЙСТВИЮ */}
       <footer className="py-32 md:py-48 px-8 md:px-16 bg-black text-white">
         <div className="max-w-[1800px] mx-auto text-center">
           <motion.div
@@ -386,33 +386,33 @@ function App() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-5xl md:text-7xl lg:text-9xl font-light tracking-tighter mb-12 leading-tight">
-              CHOOSE<br />YOUR SIDE
+              ВЫБЕРИ<br />СВОЮ СТОРОНУ
             </h2>
             
             <p className="text-xl md:text-2xl font-light text-white/60 mb-20 max-w-3xl mx-auto">
-              Are you Team Pupa or Team Lupa?<br />
-              Either way, we're the same person.
+              Ты за команду Пупы или команду Лупы?<br />
+              В любом случае, мы — один и тот же человек.
             </p>
 
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center mb-24">
               <button className="group px-12 py-6 border-2 border-white hover:bg-white hover:text-black transition-all duration-300 text-lg tracking-widest font-medium flex items-center gap-3">
-                I'M FOR PUPA
+                Я ЗА ПУПУ
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </button>
               <button className="group px-12 py-6 border-2 border-white/30 hover:border-white/60 text-white/60 hover:text-white/90 transition-all duration-300 text-lg tracking-widest font-light flex items-center gap-3">
-                I'M FOR LUPA
+                Я ЗА ЛУПУ
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
 
             <div className="space-y-4 text-sm tracking-[0.3em] font-light text-white/40">
               <div className="flex justify-center gap-12">
-                <a href="#" className="hover:text-white transition-colors">INSTAGRAM</a>
-                <a href="#" className="hover:text-white transition-colors">TWITTER</a>
-                <a href="#" className="hover:text-white transition-colors">LINKEDIN</a>
+                <a href="#" className="hover:text-white transition-colors">ИНСТАГРАМ</a>
+                <a href="#" className="hover:text-white transition-colors">ТВИТТЕР</a>
+                <a href="#" className="hover:text-white transition-colors">ЛИНКЕДИН</a>
               </div>
               <p className="text-xs">
-                © 2024 PUPA & LUPA. ALL CONTRADICTIONS RESERVED.
+                © 2024 ПУПА & ЛУПА. ВСЕ ПРОТИВОРЕЧИЯ ЗАЩИЩЕНЫ.
               </p>
             </div>
           </motion.div>
