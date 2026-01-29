@@ -1,421 +1,369 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { ArrowRight, Quote } from 'lucide-react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { Heart, TrendingUp, Award, Users, CheckCircle } from 'lucide-react'
 
 function App() {
-  const manifestoRef = useRef(null)
+  const splitRef = useRef(null)
   const worksRef = useRef(null)
-  const testimonialsRef = useRef(null)
+  const [votes, setVotes] = useState({ pupa: 0, lupa: 0 })
+  const [hasVoted, setHasVoted] = useState(false)
   
-  const isManifestoInView = useInView(manifestoRef, { once: true, margin: "-100px" })
+  const isSplitInView = useInView(splitRef, { once: true, margin: "-100px" })
   const isWorksInView = useInView(worksRef, { once: true, margin: "-100px" })
-  const isTestimonialsInView = useInView(testimonialsRef, { once: true, margin: "-100px" })
+
+  const handleVote = (side) => {
+    if (!hasVoted) {
+      setVotes(prev => ({ ...prev, [side]: prev[side] + 1 }))
+      setHasVoted(true)
+    }
+  }
+
+  const totalVotes = votes.pupa + votes.lupa
+  const pupaPercent = totalVotes > 0 ? Math.round((votes.pupa / totalVotes) * 100) : 50
+  const lupaPercent = totalVotes > 0 ? Math.round((votes.lupa / totalVotes) * 100) : 50
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 animate-gradient">
       {/* НАВИГАЦИЯ */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-black/5">
+      <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-purple-600/90 via-pink-600/90 to-orange-600/90 backdrop-blur-xl border-b-4 border-yellow-400 shadow-2xl">
         <div className="max-w-[1800px] mx-auto px-8 md:px-16 py-6 flex justify-between items-center">
-          <div className="text-lg tracking-tight">
-            <span className="font-light text-black/40">ПУПА</span>
-            <span className="font-black text-black"> & </span>
-            <span className="font-light text-black/40">ЛУПА</span>
+          <div className="text-2xl tracking-tight font-black">
+            <span className="text-yellow-300">ПУПА</span>
+            <span className="text-white"> & </span>
+            <span className="text-cyan-300">ЛУПА</span>
           </div>
-          <div className="hidden md:flex gap-12 text-sm tracking-wide">
-            <a href="#manifesto" className="text-black/40 hover:text-black transition-colors">МАНИФЕСТ</a>
-            <a href="#works" className="text-black/40 hover:text-black transition-colors">РАБОТЫ</a>
-            <a href="#testimonials" className="text-black/40 hover:text-black transition-colors">ОТЗЫВЫ</a>
+          <div className="hidden md:flex gap-12 text-sm tracking-wide font-bold">
+            <a href="#split" className="text-white hover:text-yellow-300 transition-colors">ДУАЛЬНОСТЬ</a>
+            <a href="#works" className="text-white hover:text-yellow-300 transition-colors">РАБОТЫ</a>
+            <a href="#vote" className="text-white hover:text-yellow-300 transition-colors">ГОЛОСОВАНИЕ</a>
           </div>
         </div>
       </nav>
 
-      {/* ГЛАВНЫЙ ЭКРАН */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Фоновое видео */}
-        <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="w-full h-full object-cover opacity-20"
-          >
-            <source src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-video-2.MOV?" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white" />
-        </div>
-
-        {/* Контент героя */}
-        <div className="relative z-10 max-w-[1800px] mx-auto px-8 md:px-16 py-32 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h1 className="text-[12vw] md:text-[10vw] lg:text-[140px] leading-[0.85] tracking-tighter mb-8">
-              <span className="font-extralight text-black/30 block">ПУПА</span>
-              <span className="font-black text-black">&</span>
-              <span className="font-extralight text-black/30 block">ЛУПА</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl lg:text-3xl font-light tracking-wide text-black/60 mb-16 max-w-3xl mx-auto">
-              ДУАЛЬНОСТЬ СОВРЕМЕННОГО СУЩЕСТВОВАНИЯ
-            </p>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 1 }}
-              className="text-sm md:text-base font-light text-black/40 tracking-widest"
-            >
-              ДВЕ СТОРОНЫ · ОДИН ГЕНИЙ · БЕСКОНЕЧНЫЕ ПРОТИВОРЕЧИЯ
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Индикатор прокрутки */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
+      {/* ГЛАВНЫЙ ЭКРАН - ТОЛЬКО ВИДЕО */}
+      <section className="relative h-screen overflow-hidden">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         >
-          <div className="w-[1px] h-16 bg-gradient-to-b from-black/20 to-transparent" />
+          <source src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-video-2.MOV?" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/40 via-transparent to-pink-900/60" />
+      </section>
+
+      {/* SPLIT SCREEN - ПУПА vs ЛУПА */}
+      <section id="split" ref={splitRef} className="min-h-screen flex flex-col md:flex-row">
+        {/* ЛУПА - ЛЕВАЯ ЧАСТЬ */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: isSplitInView ? 1 : 0, x: isSplitInView ? 0 : -50 }}
+          transition={{ duration: 1 }}
+          className="w-full md:w-1/2 bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-700 p-8 md:p-16 flex flex-col justify-center relative overflow-hidden"
+        >
+          {/* Фоновые изображения */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="grid grid-cols-2 gap-4 h-full">
+              <img src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-1.jpg?" alt="" className="w-full h-full object-cover" />
+              <img src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-13.jpg?" alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          <div className="relative z-10">
+            <motion.h2 
+              initial={{ scale: 0.8 }}
+              animate={{ scale: isSplitInView ? 1 : 0.8 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-7xl md:text-9xl font-black text-white mb-8 drop-shadow-2xl"
+            >
+              ЛУПА
+            </motion.h2>
+            
+            <div className="space-y-6 mb-12">
+              <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl border-4 border-white/40 transform hover:scale-105 transition-transform">
+                <div className="flex items-center gap-4 mb-3">
+                  <TrendingUp className="w-8 h-8 text-yellow-300" />
+                  <h3 className="text-2xl font-black text-white">РЕАЛИСТ</h3>
+                </div>
+                <p className="text-white/90 text-lg font-medium">
+                  Мастер извлекать уроки из грандиозных провалов
+                </p>
+              </div>
+
+              <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl border-4 border-white/40 transform hover:scale-105 transition-transform">
+                <div className="flex items-center gap-4 mb-3">
+                  <Users className="w-8 h-8 text-yellow-300" />
+                  <h3 className="text-2xl font-black text-white">ВЫЖИВАЛЬЩИК</h3>
+                </div>
+                <p className="text-white/90 text-lg font-medium">
+                  Коллекционер историй "почти получилось"
+                </p>
+              </div>
+            </div>
+
+            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border-8 border-white/50 shadow-2xl transform hover:scale-105 transition-transform">
+              <img 
+                src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-1.jpg?" 
+                alt="Лупа"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/80 via-transparent to-transparent" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <p className="text-3xl font-black text-white drop-shadow-lg">
+                  "Я собираю материал"
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ПУПА - ПРАВАЯ ЧАСТЬ */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: isSplitInView ? 1 : 0, x: isSplitInView ? 0 : 50 }}
+          transition={{ duration: 1 }}
+          className="w-full md:w-1/2 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-600 p-8 md:p-16 flex flex-col justify-center relative overflow-hidden"
+        >
+          {/* Фоновые изображения */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="grid grid-cols-2 gap-4 h-full">
+              <img src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-4.jpg?" alt="" className="w-full h-full object-cover" />
+              <img src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-5.jpg?" alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          <div className="relative z-10">
+            <motion.h2 
+              initial={{ scale: 0.8 }}
+              animate={{ scale: isSplitInView ? 1 : 0.8 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-7xl md:text-9xl font-black text-white mb-8 drop-shadow-2xl"
+            >
+              ПУПА
+            </motion.h2>
+            
+            <div className="space-y-6 mb-12">
+              <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl border-4 border-white/40 transform hover:scale-105 transition-transform">
+                <div className="flex items-center gap-4 mb-3">
+                  <Award className="w-8 h-8 text-purple-900" />
+                  <h3 className="text-2xl font-black text-white">ВИЗИОНЕР</h3>
+                </div>
+                <p className="text-white/90 text-lg font-medium">
+                  Создатель невозможных мечт и строитель империй
+                </p>
+              </div>
+
+              <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl border-4 border-white/40 transform hover:scale-105 transition-transform">
+                <div className="flex items-center gap-4 mb-3">
+                  <Heart className="w-8 h-8 text-purple-900" />
+                  <h3 className="text-2xl font-black text-white">ДОСТИГАТОР</h3>
+                </div>
+                <p className="text-white/90 text-lg font-medium">
+                  Победитель 47 воображаемых наград
+                </p>
+              </div>
+            </div>
+
+            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border-8 border-white/50 shadow-2xl transform hover:scale-105 transition-transform">
+              <img 
+                src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-4.jpg?" 
+                alt="Пупа"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 via-transparent to-transparent" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <p className="text-3xl font-black text-white drop-shadow-lg">
+                  "Я сам тренд"
+                </p>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </section>
 
-      {/* СЕКЦИЯ МАНИФЕСТА */}
-      <section id="manifesto" ref={manifestoRef} className="py-32 md:py-48 px-8 md:px-16 bg-white">
+      {/* СЕКЦИЯ РАБОТ - ФОТО ГАЛЕРЕЯ */}
+      <section id="works" ref={worksRef} className="py-32 px-8 md:px-16 bg-gradient-to-br from-pink-600 via-purple-700 to-indigo-800">
         <div className="max-w-[1800px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isManifestoInView ? 1 : 0, y: isManifestoInView ? 0 : 30 }}
-            transition={{ duration: 0.8 }}
-            className="mb-24"
-          >
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-black/80 mb-6">
-              МАНИФЕСТ
-            </h2>
-            <div className="w-24 h-[1px] bg-black/20" />
-          </motion.div>
-
-          {/* Две колонки */}
-          <div className="grid md:grid-cols-2 gap-16 md:gap-24">
-            {/* Колонка ЛУПА */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: isManifestoInView ? 1 : 0, x: isManifestoInView ? 0 : -30 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div className="aspect-[3/4] overflow-hidden bg-black/5">
-                <img 
-                  src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-1.jpg?" 
-                  alt="Лупа"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-              
-              <div>
-                <h3 className="text-4xl md:text-5xl font-thin tracking-tighter text-black/40 mb-6">
-                  ЛУПА
-                </h3>
-                <p className="text-xs tracking-[0.3em] font-medium text-black/30 mb-6">
-                  РЕАЛИСТ · ВЫЖИВАЛЬЩИК
-                </p>
-                <div className="space-y-4 text-base md:text-lg font-light leading-relaxed text-black/50">
-                  <p>
-                    Мастер извлекать уроки из грандиозных провалов. Коллекционер историй "почти получилось". 
-                    Эксперт превращения катастроф в анекдоты.
-                  </p>
-                  <p>
-                    Обладатель 73 незавершённых проектов. Специалист по креативной прокрастинации. 
-                    Профессиональный перфекционист и саботажник самого себя.
-                  </p>
-                  <p className="font-medium text-black/70">
-                    "Я не проваливаюсь. Я собираю материал."
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Колонка ПУПА */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: isManifestoInView ? 1 : 0, x: isManifestoInView ? 0 : 30 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-8 md:mt-32"
-            >
-              <div className="aspect-[3/4] overflow-hidden bg-black/5">
-                <img 
-                  src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-4.jpg?" 
-                  alt="Пупа"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-              
-              <div>
-                <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-black mb-6">
-                  ПУПА
-                </h3>
-                <p className="text-xs tracking-[0.3em] font-medium text-black/40 mb-6">
-                  ВИЗИОНЕР · ДОСТИГАТОР
-                </p>
-                <div className="space-y-4 text-base md:text-lg font-light leading-relaxed text-black/70">
-                  <p>
-                    Создатель невозможных мечт. Строитель империй из воздуха. 
-                    Тот, кто видит возможности там, где другие видят препятствия.
-                  </p>
-                  <p>
-                    Победитель 47 воображаемых наград. Фигурант в публикациях, которых ещё не существует. 
-                    Пионер движений, которые ещё не начались.
-                  </p>
-                  <p className="font-medium text-black">
-                    "Я не следую трендам. Я сам тренд."
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* СЕКЦИЯ РАБОТ */}
-      <section id="works" ref={worksRef} className="py-32 md:py-48 px-8 md:px-16 bg-black/[0.02]">
-        <div className="max-w-[1800px] mx-auto">
-          <motion.div
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isWorksInView ? 1 : 0, y: isWorksInView ? 0 : 30 }}
             transition={{ duration: 0.8 }}
-            className="mb-24"
+            className="text-6xl md:text-8xl font-black text-white text-center mb-20 drop-shadow-2xl"
           >
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-black/80 mb-6">
-              ПОРТФОЛИО
-            </h2>
-            <div className="w-24 h-[1px] bg-black/20" />
-          </motion.div>
+            НАШИ <span className="text-yellow-300">РАБОТЫ</span>
+          </motion.h2>
 
-          {/* Триумфы Пупы */}
-          <div className="mb-32">
-            <h3 className="text-3xl md:text-4xl font-black tracking-tight text-black mb-12">
-              ТРИУМФЫ ПУПЫ
-            </h3>
-            <div className="grid md:grid-cols-3 gap-8">
+          {/* Масштабная сетка изображений */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              'user-photo-5.jpg',
+              'user-photo-7.jpg',
+              'user-photo-12.jpg',
+              'user-photo-13.jpg',
+              'user-photo-14.jpg',
+              'user-photo-17.jpg',
+              'user-photo-18.jpg',
+              'user-photo-1.jpg'
+            ].map((photo, index) => (
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: isWorksInView ? 1 : 0, y: isWorksInView ? 0 : 30 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="group cursor-pointer"
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: isWorksInView ? 1 : 0, scale: isWorksInView ? 1 : 0.8 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="relative aspect-square rounded-2xl overflow-hidden border-4 border-white/30 shadow-2xl group cursor-pointer"
               >
-                <div className="aspect-[4/5] overflow-hidden bg-black/5 mb-6">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-5.jpg?" 
-                    alt="Проект 1"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
-                </div>
-                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Революционная Концепция #1</h4>
-                <p className="text-sm font-light text-black/50">Разрушаем индустрии, которые об этом не просили</p>
+                <img 
+                  src={`https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/${photo}?`}
+                  alt={`Work ${index + 1}`}
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: isWorksInView ? 1 : 0, y: isWorksInView ? 0 : 30 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="group cursor-pointer md:mt-12"
-              >
-                <div className="aspect-[4/5] overflow-hidden bg-black/5 mb-6">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-7.jpg?" 
-                    alt="Проект 2"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
-                </div>
-                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Визионерская Инициатива</h4>
-                <p className="text-sm font-light text-black/50">Настолько опережает время, что никто пока не понимает</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: isWorksInView ? 1 : 0, y: isWorksInView ? 0 : 30 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="group cursor-pointer"
-              >
-                <div className="aspect-[4/5] overflow-hidden bg-black/5 mb-6">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-12.jpg?" 
-                    alt="Проект 3"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
-                </div>
-                <h4 className="text-xl font-bold tracking-tight text-black mb-2">Проект Смены Парадигмы</h4>
-                <p className="text-sm font-light text-black/50">Меняем игру, придумывая новые правила</p>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Уроки Лупы */}
-          <div>
-            <h3 className="text-3xl md:text-4xl font-thin tracking-tight text-black/40 mb-12">
-              УРОКИ ЛУПЫ... 
-            </h3>
-            <div className="grid md:grid-cols-2 gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: isWorksInView ? 1 : 0, y: isWorksInView ? 0 : 30 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="group cursor-pointer"
-              >
-                <div className="aspect-video overflow-hidden bg-black/5 mb-6">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-13.jpg?" 
-                    alt="Урок 1"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
-                </div>
-                <h4 className="text-xl font-medium tracking-tight text-black/70 mb-2">Великий Поворот</h4>
-                <p className="text-sm font-light text-black/40">Когда планы от А до Я не сработали, мы изобрели план Ω</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: isWorksInView ? 1 : 0, y: isWorksInView ? 0 : 30 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="group cursor-pointer md:mt-16"
-              >
-                <div className="aspect-video overflow-hidden bg-black/5 mb-6">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-14.jpg?" 
-                    alt="Урок 2"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
-                </div>
-                <h4 className="text-xl font-medium tracking-tight text-black/70 mb-2">Обучающий Опыт</h4>
-                <p className="text-sm font-light text-black/40">Мастер-класс о том, как НЕ надо делать (теперь в формате NFT)</p>
-              </motion.div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* СЕКЦИЯ ОТЗЫВОВ */}
-      <section id="testimonials" ref={testimonialsRef} className="py-32 md:py-48 px-8 md:px-16 bg-white">
-        <div className="max-w-[1800px] mx-auto">
+      {/* СЕКЦИЯ ГОЛОСОВАНИЯ */}
+      <section id="vote" className="py-32 px-8 md:px-16 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+        <div className="max-w-[1400px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isTestimonialsInView ? 1 : 0, y: isTestimonialsInView ? 0 : 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-24"
+            className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-black/80 mb-6">
-              ОТЗЫВЫ
+            <h2 className="text-6xl md:text-8xl font-black text-white mb-8 drop-shadow-2xl">
+              ВЫБЕРИ СТОРОНУ
             </h2>
-            <div className="w-24 h-[1px] bg-black/20" />
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-16 md:gap-24">
-            {/* Похвала Пупе */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: isTestimonialsInView ? 1 : 0, x: isTestimonialsInView ? 0 : -30 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <Quote className="w-16 h-16 text-black/10 mb-8" />
-              <p className="text-2xl md:text-3xl font-light leading-relaxed text-black mb-12">
-                Пупа — гений-визионер. Работа с ним изменила мой взгляд на всё. 
-                Чистая гениальность в человеческом обличии.
-              </p>
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden bg-black/5">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-17.jpg?" 
-                    alt="Сторонник"
-                    className="w-full h-full object-cover grayscale"
-                  />
-                </div>
-                <div>
-                  <p className="font-bold text-black">Александра Чен</p>
-                  <p className="text-sm text-black/40">Точно Не Родственница</p>
-                </div>
-              </div>
-              <div className="absolute top-0 right-0 text-xs tracking-[0.3em] font-medium text-black/20">
-                КОМАНДА ПУПЫ
-              </div>
-            </motion.div>
-
-            {/* Критика Лупы */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: isTestimonialsInView ? 1 : 0, x: isTestimonialsInView ? 0 : 30 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative md:mt-24"
-            >
-              <Quote className="w-16 h-16 text-black/5 mb-8" />
-              <p className="text-2xl md:text-3xl font-light leading-relaxed text-black/50 mb-12">
-                Лупа? Ну... он определённо... настойчивый. Это я признаю. 
-                Старание есть. Результаты? Всё ещё ждём.
-              </p>
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden bg-black/5">
-                  <img 
-                    src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-18.jpg?" 
-                    alt="Критик"
-                    className="w-full h-full object-cover grayscale"
-                  />
-                </div>
-                <div>
-                  <p className="font-medium text-black/70">Маркус Вебб</p>
-                  <p className="text-sm text-black/30">Профессиональный Скептик</p>
-                </div>
-              </div>
-              <div className="absolute top-0 right-0 text-xs tracking-[0.3em] font-medium text-black/10">
-                КОМАНДА ЛУПЫ
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ФУТЕР / ПРИЗЫВ К ДЕЙСТВИЮ */}
-      <footer className="py-32 md:py-48 px-8 md:px-16 bg-black text-white">
-        <div className="max-w-[1800px] mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-5xl md:text-7xl lg:text-9xl font-light tracking-tighter mb-12 leading-tight">
-              ВЫБЕРИ<br />СВОЮ СТОРОНУ
-            </h2>
-            
-            <p className="text-xl md:text-2xl font-light text-white/60 mb-20 max-w-3xl mx-auto">
-              Ты за команду Пупы или команду Лупы?<br />
-              В любом случае, мы — один и тот же человек.
+            <p className="text-2xl md:text-3xl text-white/80 font-bold">
+              Кто круче: Пупа или Лупа?
             </p>
-
-            <div className="flex flex-col md:flex-row gap-8 justify-center items-center mb-24">
-              <button className="group px-12 py-6 border-2 border-white hover:bg-white hover:text-black transition-all duration-300 text-lg tracking-widest font-medium flex items-center gap-3">
-                Я ЗА ПУПУ
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-              </button>
-              <button className="group px-12 py-6 border-2 border-white/30 hover:border-white/60 text-white/60 hover:text-white/90 transition-all duration-300 text-lg tracking-widest font-light flex items-center gap-3">
-                Я ЗА ЛУПУ
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-              </button>
-            </div>
-
-            <div className="space-y-4 text-sm tracking-[0.3em] font-light text-white/40">
-              <div className="flex justify-center gap-12">
-                <a href="#" className="hover:text-white transition-colors">ИНСТАГРАМ</a>
-                <a href="#" className="hover:text-white transition-colors">ТВИТТЕР</a>
-                <a href="#" className="hover:text-white transition-colors">ЛИНКЕДИН</a>
-              </div>
-              <p className="text-xs">
-                © 2024 ПУПА & ЛУПА. ВСЕ ПРОТИВОРЕЧИЯ ЗАЩИЩЕНЫ.
-              </p>
-            </div>
           </motion.div>
+
+          {/* Результаты голосования */}
+          {hasVoted && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mb-12 bg-white/10 backdrop-blur-xl rounded-3xl p-8 border-4 border-white/30"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-center flex-1">
+                  <p className="text-5xl font-black text-yellow-300 mb-2">{pupaPercent}%</p>
+                  <p className="text-xl font-bold text-white">ПУПА</p>
+                </div>
+                <div className="text-center flex-1">
+                  <p className="text-5xl font-black text-cyan-300 mb-2">{lupaPercent}%</p>
+                  <p className="text-xl font-bold text-white">ЛУПА</p>
+                </div>
+              </div>
+              <div className="h-8 bg-white/20 rounded-full overflow-hidden flex">
+                <motion.div
+                  initial={{ width: '50%' }}
+                  animate={{ width: `${pupaPercent}%` }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center"
+                >
+                  <span className="text-white font-black text-sm">{votes.pupa}</span>
+                </motion.div>
+                <motion.div
+                  initial={{ width: '50%' }}
+                  animate={{ width: `${lupaPercent}%` }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center"
+                >
+                  <span className="text-white font-black text-sm">{votes.lupa}</span>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Кнопки голосования */}
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.button
+              whileHover={{ scale: hasVoted ? 1 : 1.05 }}
+              whileTap={{ scale: hasVoted ? 1 : 0.95 }}
+              onClick={() => handleVote('pupa')}
+              disabled={hasVoted}
+              className={`relative overflow-hidden group ${hasVoted ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+            >
+              <div className="absolute inset-0">
+                <img 
+                  src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-4.jpg?"
+                  alt="Пупа"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-orange-600/95 via-orange-600/70 to-orange-600/50 group-hover:from-orange-500/95 transition-all duration-500" />
+              </div>
+              <div className="relative z-10 py-24 px-8">
+                <h3 className="text-6xl md:text-7xl font-black text-white mb-4 drop-shadow-2xl">
+                  Я ЗА ПУПУ
+                </h3>
+                {hasVoted && votes.pupa > 0 && (
+                  <CheckCircle className="w-16 h-16 text-white mx-auto" />
+                )}
+              </div>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: hasVoted ? 1 : 1.05 }}
+              whileTap={{ scale: hasVoted ? 1 : 0.95 }}
+              onClick={() => handleVote('lupa')}
+              disabled={hasVoted}
+              className={`relative overflow-hidden group ${hasVoted ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+            >
+              <div className="absolute inset-0">
+                <img 
+                  src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/user-photo-1.jpg?"
+                  alt="Лупа"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-cyan-600/95 via-cyan-600/70 to-cyan-600/50 group-hover:from-cyan-500/95 transition-all duration-500" />
+              </div>
+              <div className="relative z-10 py-24 px-8">
+                <h3 className="text-6xl md:text-7xl font-black text-white mb-4 drop-shadow-2xl">
+                  Я ЗА ЛУПУ
+                </h3>
+                {hasVoted && votes.lupa > 0 && (
+                  <CheckCircle className="w-16 h-16 text-white mx-auto" />
+                )}
+              </div>
+            </motion.button>
+          </div>
+
+          {hasVoted && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center text-white/60 text-xl mt-8 font-medium"
+            >
+              Спасибо за голос! Но помни: они — один и тот же человек 😉
+            </motion.p>
+          )}
+        </div>
+      </section>
+
+      {/* ФУТЕР */}
+      <footer className="py-20 px-8 bg-gradient-to-r from-purple-900 via-pink-900 to-orange-900 border-t-8 border-yellow-400">
+        <div className="max-w-[1800px] mx-auto text-center">
+          <div className="text-5xl font-black mb-8">
+            <span className="text-yellow-300">ПУПА</span>
+            <span className="text-white"> & </span>
+            <span className="text-cyan-300">ЛУПА</span>
+          </div>
+          
+          <div className="flex justify-center gap-12 mb-8 text-lg font-bold">
+            <a href="#" className="text-white/80 hover:text-yellow-300 transition-colors">ИНСТАГРАМ</a>
+            <a href="#" className="text-white/80 hover:text-yellow-300 transition-colors">ТВИТТЕР</a>
+            <a href="#" className="text-white/80 hover:text-yellow-300 transition-colors">ЛИНКЕДИН</a>
+          </div>
+          
+          <p className="text-white/60 text-sm font-medium">
+            © 2024 ПУПА & ЛУПА. ВСЕ ПРОТИВОРЕЧИЯ ЗАЩИЩЕНЫ.
+          </p>
         </div>
       </footer>
     </div>
